@@ -49,7 +49,7 @@ public class TesteConexao {
     
     @Test
     public void testeConexao(){
-        System.out.println("conectadinho");
+        System.out.println("Conexão realizada");
     }
 
 }

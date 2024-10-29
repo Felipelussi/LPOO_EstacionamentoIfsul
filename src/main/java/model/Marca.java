@@ -10,8 +10,7 @@ package model;
  * @author felipe
  */
 public enum Marca {
-    CHEVROLET
-//   FIAT,
+    CHEVROLET;
 //   HONDA,
 //   RENAULT,
 //   HYUNDAI,

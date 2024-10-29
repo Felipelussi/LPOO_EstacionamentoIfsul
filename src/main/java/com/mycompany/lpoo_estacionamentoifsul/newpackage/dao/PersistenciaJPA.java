@@ -12,13 +12,21 @@ import javax.persistence.Persistence;
  *
  * @author felipe
  */
-public class PersistenciaJPA implements InterfaceDB{
+public class PersistenciaJPA implements InterfaceDB {
+
     public EntityManager entity;
-public    EntityManagerFactory factory;
-    
-    public PersistenciaJPA(){
-        factory = Persistence.createEntityManagerFactory("estacionamento");
+    public EntityManagerFactory factory;
+
+    public PersistenciaJPA() {
+        factory = Persistence.createEntityManagerFactory("db_lpoo_estacionamento_ifsul");
         entity = factory.createEntityManager();
+    }
+
+    public EntityManager getEntityManager() {
+        if (entity == null || !entity.isOpen()) {
+            entity = factory.createEntityManager();
+        }
+        return entity;
     }
 
     @Override
@@ -39,13 +47,20 @@ public    EntityManagerFactory factory;
 
     @Override
     public void persist(Object o) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        entity = getEntityManager();
+        try{
+        entity.getTransaction().begin();
+                entity.persist(o);
+        entity.getTransaction().commit();
+        }catch(Exception e){
+            if(entity.getTransaction().isActive())
+            entity.getTransaction().rollback();
+        }
+        }
 
     @Override
     public void remover(Object o) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
+
 }

@@ -5,12 +5,23 @@
 package model;
 
 import java.util.Date;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.Id;
 
 /**
  *
  * @author felipe
  */
-public class EntradaSaida {
+@Entity
+@Table(name = "tb_entrada_saida")
+public class EntradaSaida implements Serializable {
+
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id
     private int id;
     private Date data;
     private Veiculo veiculo;
@@ -21,7 +32,6 @@ public class EntradaSaida {
         this.veiculo = veiculo;
         this.tipo = tipo;
     }
-
 
     public int getId() {
         return id;
@@ -54,5 +64,5 @@ public class EntradaSaida {
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
-    
+
 }
